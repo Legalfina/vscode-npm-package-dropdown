@@ -2,18 +2,18 @@
 	"name": "npm-version-lens",
 	"displayName": "NPM Version Dropdown in package.json",
 	"description": "Shows the latest version next to packages in package.json and allows selecting different versions with color-coded update indicators. By Legalfina.com",
-	"version": "0.0.1",
-	"publisher": "your-publisher",
+	"version": "1.0.1",
+	"publisher": "Legalfina",
 	"author": "Farshad Hemmati",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Legalfina/vscode-npm-package-dropdown"
+		"url": "https://github.com/your-repo/npm-version-lens"
 	},
 	"bugs": {
-		"url": "https://github.com/Legalfina/vscode-npm-package-dropdown/issues"
+		"url": "https://github.com/your-repo/npm-version-lens/issues"
 	},
-	"homepage": "https://github.com/Legalfina/vscode-npm-package-dropdown#readme",
+	"homepage": "https://github.com/your-repo/npm-version-lens#readme",
 	"keywords": [
 		"npm",
 		"package.json",

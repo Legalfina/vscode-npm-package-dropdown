@@ -1,7 +1,7 @@
 # NPM Version Dropdown in package.json
 
 <p align="center">
-  <img src="images/icon.svg" alt="NPM Version Dropdown" width="128" height="128">
+  <img src="images/icon-readme.png" alt="NPM Version Dropdown" width="128" height="128">
 </p>
 
 <p align="center">
@@ -52,7 +52,7 @@ Instantly understand the scope of updates at a glance:
 | 🟢 **Green**      | Patch       | Bug fixes only (e.g., `1.1.1` → `1.1.2`)                    |
 
 <p align="center">
-  <img src="images/screenshot-main.svg" alt="Version indicators in package.json" width="700">
+  <img src="images/screenshot-main.png" alt="Version indicators in package.json" width="700">
 </p>
 
 ### 📋 One-Click Version Selection
@@ -65,7 +65,7 @@ Click the dropdown icon (`⏷`) next to any outdated package to see **all availa
 - Single click to replace the current version
 
 <p align="center">
-  <img src="images/screenshot-dropdown.svg" alt="Version dropdown selector" width="450">
+  <img src="images/screenshot-dropdown.png" alt="Version dropdown selector" width="450">
 </p>
 
 ### ⚡ Lightning Fast
