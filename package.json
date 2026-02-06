@@ -1,0 +1,69 @@
+{
+  "name": "npm-version-lens",
+  "displayName": "NPM Version Dropdown in package.json",
+  "description": "Shows the latest version next to packages in package.json and allows selecting different versions with color-coded update indicators",
+  "version": "0.0.1",
+  "publisher": "your-publisher",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-repo/npm-version-lens"
+  },
+  "bugs": {
+    "url": "https://github.com/your-repo/npm-version-lens/issues"
+  },
+  "homepage": "https://github.com/your-repo/npm-version-lens#readme",
+  "keywords": [
+    "npm",
+    "package.json",
+    "version",
+    "dependency",
+    "update",
+    "outdated",
+    "semver"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:json"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "npmVersionLens.updateVersion",
+        "title": "Update Package Version"
+      },
+      {
+        "command": "npmVersionLens.showVersions",
+        "title": "Show All Versions"
+      },
+      {
+        "command": "npmVersionLens.refresh",
+        "title": "NPM Version Lens: Refresh"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="npmGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#CB3837;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E53935;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="128" height="128" rx="16" fill="url(#bgGradient)"/>
+  
+  <!-- NPM-style box -->
+  <rect x="20" y="35" width="50" height="40" rx="4" fill="url(#npmGradient)"/>
+  <text x="45" y="62" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">npm</text>
+  
+  <!-- Version indicator arrow -->
+  <path d="M 75 55 L 95 55 L 95 48 L 110 58 L 95 68 L 95 61 L 75 61 Z" fill="#4EC9B0"/>
+  
+  <!-- Version numbers -->
+  <text x="64" y="95" font-family="monospace" font-size="14" fill="#6CB6FF" text-anchor="middle">1.0.0</text>
+  <text x="64" y="112" font-family="monospace" font-size="11" fill="#FFA500" text-anchor="middle">→ 2.1.0</text>
+  
+  <!-- Dropdown indicator -->
+  <polygon points="100,90 108,90 104,98" fill="#4EC9B0"/>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="editorBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1e1e"/>
+      <stop offset="100%" style="stop-color:#252526"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Editor background -->
+  <rect width="800" height="500" fill="url(#editorBg)"/>
+  
+  <!-- Line numbers gutter -->
+  <rect x="0" y="0" width="50" height="500" fill="#1e1e1e"/>
+  
+  <!-- Line numbers -->
+  <text x="35" y="45" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">1</text>
+  <text x="35" y="70" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">2</text>
+  <text x="35" y="95" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">3</text>
+  <text x="35" y="120" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">4</text>
+  <text x="35" y="145" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">5</text>
+  <text x="35" y="170" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">6</text>
+  <text x="35" y="195" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">7</text>
+  <text x="35" y="220" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">8</text>
+  <text x="35" y="245" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">9</text>
+  <text x="35" y="270" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">10</text>
+  <text x="35" y="295" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">11</text>
+  <text x="35" y="320" font-family="monospace" font-size="14" fill="#858585" text-anchor="end">12</text>
+  
+  <!-- JSON content -->
+  <text x="60" y="45" font-family="monospace" font-size="14" fill="#d4d4d4">{</text>
+  
+  <text x="60" y="70" font-family="monospace" font-size="14">
+    <tspan fill="#9cdcfe">"dependencies"</tspan><tspan fill="#d4d4d4">: {</tspan>
+  </text>
+  
+  <!-- Express - Major update (blue) -->
+  <text x="60" y="95" font-family="monospace" font-size="14">
+    <tspan fill="#d4d4d4">    </tspan>
+    <tspan fill="#ce9178">"express"</tspan>
+    <tspan fill="#d4d4d4">: </tspan>
+    <tspan fill="#ce9178">"^3.0.0"</tspan>
+  </text>
+  <text x="295" y="95" font-family="monospace" font-size="14" fill="#6CB6FF"> → 4.18.2 ⏷</text>
+  
+  <!-- React - Minor update (orange) -->
+  <text x="60" y="120" font-family="monospace" font-size="14">
+    <tspan fill="#d4d4d4">    </tspan>
+    <tspan fill="#ce9178">"react"</tspan>
+    <tspan fill="#d4d4d4">: </tspan>
+    <tspan fill="#ce9178">"^18.0.0"</tspan>
+  </text>
+  <text x="295" y="120" font-family="monospace" font-size="14" fill="#FFA500"> → 18.2.0 ⏷</text>
+  
+  <!-- Lodash - Patch update (green) -->
+  <text x="60" y="145" font-family="monospace" font-size="14">
+    <tspan fill="#d4d4d4">    </tspan>
+    <tspan fill="#ce9178">"lodash"</tspan>
+    <tspan fill="#d4d4d4">: </tspan>
+    <tspan fill="#ce9178">"^4.17.20"</tspan>
+  </text>
+  <text x="320" y="145" font-family="monospace" font-size="14" fill="#4EC9B0"> → 4.17.21 ⏷</text>
+  
+  <text x="60" y="170" font-family="monospace" font-size="14" fill="#d4d4d4">  },</text>
+  
+  <text x="60" y="195" font-family="monospace" font-size="14">
+    <tspan fill="#9cdcfe">"devDependencies"</tspan><tspan fill="#d4d4d4">: {</tspan>
+  </text>
+  
+  <!-- TypeScript - up to date -->
+  <text x="60" y="220" font-family="monospace" font-size="14">
+    <tspan fill="#d4d4d4">    </tspan>
+    <tspan fill="#ce9178">"typescript"</tspan>
+    <tspan fill="#d4d4d4">: </tspan>
+    <tspan fill="#ce9178">"^5.3.0"</tspan>
+  </text>
+  
+  <!-- ESLint - Minor update -->
+  <text x="60" y="245" font-family="monospace" font-size="14">
+    <tspan fill="#d4d4d4">    </tspan>
+    <tspan fill="#ce9178">"eslint"</tspan>
+    <tspan fill="#d4d4d4">: </tspan>
+    <tspan fill="#ce9178">"^8.50.0"</tspan>
+  </text>
+  <text x="295" y="245" font-family="monospace" font-size="14" fill="#FFA500"> → 8.57.0 ⏷</text>
+  
+  <text x="60" y="270" font-family="monospace" font-size="14" fill="#d4d4d4">  }</text>
+  <text x="60" y="295" font-family="monospace" font-size="14" fill="#d4d4d4">}</text>
+  
+  <!-- Legend box -->
+  <rect x="550" y="30" width="220" height="120" rx="8" fill="#2d2d30" stroke="#3c3c3c" stroke-width="1"/>
+  <text x="570" y="55" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#d4d4d4">Version Color Legend</text>
+  
+  <circle cx="580" cy="75" r="6" fill="#6CB6FF"/>
+  <text x="595" y="80" font-family="Arial, sans-serif" font-size="12" fill="#d4d4d4">Major update (breaking)</text>
+  
+  <circle cx="580" cy="100" r="6" fill="#FFA500"/>
+  <text x="595" y="105" font-family="Arial, sans-serif" font-size="12" fill="#d4d4d4">Minor update (features)</text>
+  
+  <circle cx="580" cy="125" r="6" fill="#4EC9B0"/>
+  <text x="595" y="130" font-family="Arial, sans-serif" font-size="12" fill="#d4d4d4">Patch update (fixes)</text>
+</svg>
