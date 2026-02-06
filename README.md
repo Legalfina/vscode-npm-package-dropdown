@@ -9,17 +9,17 @@
 </p>
 
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=your-publisher.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/v/your-publisher.npm-version-lens?style=flat-square&label=Version" alt="Version">
+  <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
+    <img src="https://img.shields.io/visual-studio-marketplace/v/legalfina.npm-version-lens?style=flat-square&label=Version" alt="Version">
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=your-publisher.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/i/your-publisher.npm-version-lens?style=flat-square&label=Installs" alt="Installs">
+  <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
+    <img src="https://img.shields.io/visual-studio-marketplace/i/legalfina.npm-version-lens?style=flat-square&label=Installs" alt="Installs">
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=your-publisher.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/d/your-publisher.npm-version-lens?style=flat-square&label=Downloads" alt="Downloads">
+  <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
+    <img src="https://img.shields.io/visual-studio-marketplace/d/legalfina.npm-version-lens?style=flat-square&label=Downloads" alt="Downloads">
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=your-publisher.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/r/your-publisher.npm-version-lens?style=flat-square&label=Rating" alt="Rating">
+  <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
+    <img src="https://img.shields.io/visual-studio-marketplace/r/legalfina.npm-version-lens?style=flat-square&label=Rating" alt="Rating">
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
@@ -83,12 +83,12 @@ Click the dropdown icon (`⏷`) next to any outdated package to see **all availa
 
 1. Open VS Code
 2. Press `Ctrl+P` / `Cmd+P`
-3. Type `ext install your-publisher.npm-version-lens`
+3. Type `ext install legalfina.npm-version-lens`
 4. Press Enter
 
 ### From VSIX File
 
-1. Download the `.vsix` file from [Releases](https://github.com/your-repo/npm-version-lens/releases)
+1. Download the `.vsix` file from [Releases](https://github.com/legalfina/npm-version-lens/releases)
 2. Open VS Code
 3. Press `Ctrl+Shift+P` / `Cmd+Shift+P`
 4. Type "Install from VSIX"

@@ -8,12 +8,12 @@
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/your-repo/npm-version-lens"
+		"url": "https://github.com/Legalfina/vscode-npm-package-dropdown"
 	},
 	"bugs": {
-		"url": "https://github.com/your-repo/npm-version-lens/issues"
+		"url": "https://github.com/Legalfina/vscode-npm-package-dropdown/issues"
 	},
-	"homepage": "https://github.com/your-repo/npm-version-lens#readme",
+	"homepage": "https://github.com/Legalfina/vscode-npm-package-dropdown#readme",
 	"keywords": [
 		"npm",
 		"package.json",
