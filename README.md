@@ -21,7 +21,7 @@
 </p>
 
 
-<p align="center mt-2">
+<p align="center">
   Built with ❤️ by Farshad Hemmati at <3 at <a href="https://www.legalfina.com/en">Legalfina</a>
 </p>
 ---
