@@ -39,11 +39,11 @@
 
 Instantly understand the scope of updates at a glance:
 
-| Color | Update Type | Description |
-|-------|-------------|-------------|
-| 🔵 **Light Blue** | Major | Breaking changes possible (e.g., `1.x.x` → `2.x.x`) |
-| 🟠 **Orange** | Minor | New features, backward compatible (e.g., `1.1.x` → `1.2.x`) |
-| 🟢 **Green** | Patch | Bug fixes only (e.g., `1.1.1` → `1.1.2`) |
+| Color             | Update Type | Description                                                 |
+| ----------------- | ----------- | ----------------------------------------------------------- |
+| 🔵 **Light Blue** | Major       | Breaking changes possible (e.g., `1.x.x` → `2.x.x`)         |
+| 🟠 **Orange**     | Minor       | New features, backward compatible (e.g., `1.1.x` → `1.2.x`) |
+| 🟢 **Green**      | Patch       | Bug fixes only (e.g., `1.1.1` → `1.1.2`)                    |
 
 <p align="center">
   <img src="images/screenshot-main.svg" alt="Version indicators in package.json" width="700">
@@ -118,9 +118,9 @@ NPM Version Lens works with all dependency sections in your `package.json`:
 
 ## ⚙️ Commands
 
-| Command | Description |
-|---------|-------------|
-| `NPM Version Lens: Refresh` | Clear cache and re-fetch all package versions |
+| Command                               | Description                                     |
+| ------------------------------------- | ----------------------------------------------- |
+| `NPM Version Lens: Refresh`           | Clear cache and re-fetch all package versions   |
 | `NPM Version Lens: Show All Versions` | Open version dropdown for the package at cursor |
 
 ---
