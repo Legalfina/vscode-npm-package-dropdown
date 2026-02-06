@@ -1,7 +1,7 @@
 {
 	"name": "npm-version-lens",
 	"displayName": "NPM Version Dropdown in package.json",
-	"description": "Shows the latest version next to packages in package.json and allows selecting different versions with color-coded update indicators. By Legalfina.com",
+	"description": "See outdated npm packages in package.json and update them with a click. Color-coded version indicators and a dropdown to pick any version.",
 	"version": "1.0.7",
 	"publisher": "Legalfina",
 	"author": "Farshad Hemmati",
