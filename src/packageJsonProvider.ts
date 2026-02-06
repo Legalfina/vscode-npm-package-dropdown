@@ -30,6 +30,7 @@ export interface ClickableZone {
     currentVersion: string;
     versionStartChar: number;
     versionLength: number;
+    latestVersion: string;
 }
 
 export class PackageJsonProvider implements vscode.DocumentLinkProvider {

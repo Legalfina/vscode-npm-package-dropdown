@@ -113,9 +113,16 @@ export class VersionCompletionProvider implements vscode.CompletionItemProvider 
 
             // Get current version from the line to preserve prefix
             const lineText = document.lineAt(position.line).text;
-            const versionMatch = lineText.match(/"([^"]+)"\s*:\s*"([\^~]?)([^"]+)"/);
+            const versionMatch = lineText.match(/"([^"]+)"\s*:\s*"([\^~>=<]*)([^"]+)"/);
             const prefix = versionMatch?.[2] || '';
-            const currentVersionClean = versionMatch?.[3]?.replace(/[\^~>=<]/g, '') || '';
+            const currentVersionClean = versionMatch?.[3]?.replace(/[\^~>=<x*]/g, '') || '';
+
+            // The range should start AFTER any prefix symbols (~, ^, >=, etc.)
+            // This way VS Code's filter only sees the numeric version part.
+            // e.g. for "~16.2.12": range starts at "1", prefix "~" is left untouched.
+            // As user arrows through "16", VS Code extracts "16" and filters versions starting with 16.
+            const cleanVersionStart = versionStart + prefix.length;
+            const cleanVersionLength = versionLength - prefix.length;
 
             // Parse and sort versions
             const parsedVersions = versions.map(v => this.parseVersion(v));
@@ -128,21 +135,23 @@ export class VersionCompletionProvider implements vscode.CompletionItemProvider 
                     vscode.CompletionItemKind.Value
                 );
 
-                // Create a range that covers the entire current version (including prefix)
+                // Range covers only the numeric version (after prefix symbols)
+                // The prefix (~, ^, etc.) is outside the range and stays in place
                 const replaceRange = new vscode.Range(
-                    new vscode.Position(position.line, versionStart),
-                    new vscode.Position(position.line, versionStart + versionLength)
+                    new vscode.Position(position.line, cleanVersionStart),
+                    new vscode.Position(position.line, cleanVersionStart + cleanVersionLength)
                 );
 
-                // Use TextEdit to replace the entire version
-                item.insertText = prefix + version;
+                // insertText is just the version (no prefix, since prefix is outside the range)
+                item.insertText = version;
                 item.range = {
                     inserting: replaceRange,
                     replacing: replaceRange
                 };
                 
-                // Important: Set filterText to empty string so VS Code doesn't filter out items
-                // based on what's currently typed/selected
+                // filterText is just the clean version — VS Code matches the text between
+                // range.start (after prefix) and cursor position against this.
+                // So arrowing through "16" extracts "16" and matches "16.3.0", "16.2.14", etc.
                 item.filterText = version;
                 
                 // Sort text to maintain our sorted order

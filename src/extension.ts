@@ -10,6 +10,8 @@ let lastSelectionTime = 0;
 let lastSelectionPosition: vscode.Position | null = null;
 let suggestionWidgetVisible = false;
 let currentVersionStringRange: { line: number; startChar: number; endChar: number } | null = null;
+let suppressSelectionHandler = false;
+let refreshDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('NPM Version Dropdown is now active!');
@@ -40,6 +42,11 @@ export function activate(context: vscode.ExtensionContext) {
     const onDidChangeSelection = vscode.window.onDidChangeTextEditorSelection((event) => {
         const editor = event.textEditor;
         if (!editor.document.fileName.endsWith('package.json')) {
+            return;
+        }
+
+        // Suppress after programmatic edits (e.g. version replacement)
+        if (suppressSelectionHandler) {
             return;
         }
 
@@ -127,20 +134,33 @@ export function activate(context: vscode.ExtensionContext) {
             if (position.line === zone.line && 
                 position.character >= zone.startChar && 
                 position.character <= zone.endChar) {
-                // Clicked within the clickable zone
-                suggestionWidgetVisible = true;
-                triggerVersionDropdown(
-                    zone.packageName,
-                    zone.currentVersion,
-                    zone.line,
-                    zone.versionStartChar,
-                    zone.versionLength
-                );
                 
-                // Reset flag after a delay
-                setTimeout(() => {
-                    suggestionWidgetVisible = false;
-                }, 1000);
+                // Check if click is beyond the version string (on the arrow/latest version decoration)
+                const afterVersionString = position.character > zone.versionStartChar + zone.versionLength + 1;
+                
+                if (afterVersionString && zone.latestVersion) {
+                    // Clicked on the arrow/latest version - directly replace
+                    updatePackageVersion(
+                        zone.latestVersion,
+                        zone.line,
+                        zone.versionStartChar,
+                        zone.versionLength
+                    );
+                } else {
+                    // Clicked on the version string itself - show dropdown
+                    suggestionWidgetVisible = true;
+                    triggerVersionDropdown(
+                        zone.packageName,
+                        zone.currentVersion,
+                        zone.line,
+                        zone.versionStartChar,
+                        zone.versionLength
+                    );
+                    
+                    setTimeout(() => {
+                        suggestionWidgetVisible = false;
+                    }, 1000);
+                }
                 
                 return;
             }
@@ -172,10 +192,16 @@ export function activate(context: vscode.ExtensionContext) {
         }
     );
 
-    // Listen for document changes to refresh inlay hints
+    // Listen for document changes to refresh inlay hints (debounced)
     const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument((event) => {
         if (event.document.fileName.endsWith('package.json')) {
-            inlayHintsProvider.refresh();
+            if (refreshDebounceTimer) {
+                clearTimeout(refreshDebounceTimer);
+            }
+            refreshDebounceTimer = setTimeout(() => {
+                inlayHintsProvider.refresh();
+                refreshDebounceTimer = null;
+            }, 300);
         }
     });
 
@@ -224,6 +250,9 @@ async function updatePackageVersion(
         return;
     }
 
+    // Suppress selection handler during and after the edit
+    suppressSelectionHandler = true;
+
     const range = new vscode.Range(
         new vscode.Position(line, character),
         new vscode.Position(line, character + versionLength)
@@ -233,8 +262,10 @@ async function updatePackageVersion(
         editBuilder.replace(range, newVersion);
     });
     
-    // Refresh inlay hints after update
-    inlayHintsProvider.refresh();
+    // Re-enable selection handler after a delay
+    setTimeout(() => {
+        suppressSelectionHandler = false;
+    }, 500);
 }
 
 export function deactivate() {

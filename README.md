@@ -30,6 +30,12 @@
 </p>
 
 ---
+<p align="center">
+  Made with ❤️ by Farshad Hemmati @ <a href="https://www.legalfina.com/en">Legalfina</a>
+</p>
+
+
+---
 
 ## ✨ Features
 
@@ -192,11 +198,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Inspired by the [Version Lens](https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens) extension
 - Thanks to the npm registry for providing the package metadata API
+- Thanks to <a href="https://www.legalfina.com/en">Legalfina</a> for open sourcing this project and making the extension open to the public
 
 ---
 
-<p align="center">
-  Made with ❤️ for the VS Code community
-</p>

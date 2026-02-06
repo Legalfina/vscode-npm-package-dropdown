@@ -20,7 +20,6 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         // Light blue for major updates
         this.majorDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
-                margin: '0 0 0 20em',
                 color: '#6CB6FF', // Light blue
             }
         });
@@ -28,7 +27,6 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         // Orange for minor updates
         this.minorDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
-                margin: '0 0 0 20em',
                 color: '#FFA500', // Orange
             }
         });
@@ -36,7 +34,6 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         // Green for patch updates
         this.patchDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
-                margin: '0 0 0 20em',
                 color: '#4EC9B0', // Green
             }
         });
@@ -44,7 +41,6 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         // Red for invalid versions
         this.invalidDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
-                margin: '0 0 0 20em',
                 color: '#F44747', // Red
             }
         });
@@ -53,7 +49,7 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         this.dropdownIconDecorationType = vscode.window.createTextEditorDecorationType({
             after: {
                 margin: '0',
-                color: '#858585', // Gray
+                color: '#FFFFFF', // White
             }
         });
 
@@ -103,6 +99,21 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
 
         const results = await Promise.all(packageInfoPromises);
 
+        // First pass: find the max line end position to calculate alignment
+        let maxEndPosition = 0;
+        for (const { dep } of results) {
+            const lineText = document.lineAt(dep.line).text;
+            const charAfterQuote = lineText.charAt(dep.versionStartChar + dep.versionLength + 1);
+            const hasComma = charAfterQuote === ',';
+            const endPosition = dep.versionStartChar + dep.versionLength + (hasComma ? 2 : 1);
+            if (endPosition > maxEndPosition) {
+                maxEndPosition = endPosition;
+            }
+        }
+
+        // Target column: max end position + a fixed gap (in character widths)
+        const TARGET_COLUMN = maxEndPosition + 8;
+
         for (const { dep, info } of results) {
             if (!info) {
                 continue;
@@ -128,10 +139,14 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
             );
 
             // Position for the version info (after the closing quote and comma if present)
+            const currentEndPosition = dep.versionStartChar + dep.versionLength + (hasComma ? 2 : 1);
             const versionInfoRange = new vscode.Range(
-                new vscode.Position(dep.line, dep.versionStartChar + dep.versionLength + (hasComma ? 2 : 1)),
-                new vscode.Position(dep.line, dep.versionStartChar + dep.versionLength + (hasComma ? 2 : 1))
+                new vscode.Position(dep.line, currentEndPosition),
+                new vscode.Position(dep.line, currentEndPosition)
             );
+
+            // Calculate the per-decoration margin in ch units to align at TARGET_COLUMN
+            const marginCh = Math.max(4, TARGET_COLUMN - currentEndPosition);
 
             if (!isValidVersion) {
                 // Show icon with space inside quotes
@@ -145,13 +160,14 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                 };
                 dropdownIconDecorations.push(iconDecoration);
 
-                // Show version info outside quotes
+                // Show version info with per-decoration margin for alignment
                 const decorationText = `Version Not Found → ${latestVersion}`;
                 const decoration: vscode.DecorationOptions = {
                     range: versionInfoRange,
                     renderOptions: {
                         after: {
                             contentText: decorationText,
+                            margin: `0 0 0 ${marginCh}ch`,
                         }
                     }
                 };
@@ -165,7 +181,8 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                     packageName: dep.packageName,
                     currentVersion: dep.currentVersion,
                     versionStartChar: dep.versionStartChar,
-                    versionLength: dep.versionLength
+                    versionLength: dep.versionLength,
+                    latestVersion: latestVersion
                 });
             } else if (changeType !== VersionChangeType.None) {
                 // Show icon with space inside quotes
@@ -179,13 +196,14 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                 };
                 dropdownIconDecorations.push(iconDecoration);
 
-                // Show version info outside quotes
+                // Show version info with per-decoration margin for alignment
                 const decorationText = `→ ${latestVersion}`;
                 const decoration: vscode.DecorationOptions = {
                     range: versionInfoRange,
                     renderOptions: {
                         after: {
                             contentText: decorationText,
+                            margin: `0 0 0 ${marginCh}ch`,
                         }
                     }
                 };
@@ -198,7 +216,8 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                     packageName: dep.packageName,
                     currentVersion: dep.currentVersion,
                     versionStartChar: dep.versionStartChar,
-                    versionLength: dep.versionLength
+                    versionLength: dep.versionLength,
+                    latestVersion: latestVersion
                 });
 
                 switch (changeType) {
@@ -212,6 +231,29 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                         patchDecorations.push(decoration);
                         break;
                 }
+            } else {
+                // Package is at latest version — still show dropdown icon for version switching
+                const iconDecoration: vscode.DecorationOptions = {
+                    range: iconRange,
+                    renderOptions: {
+                        after: {
+                            contentText: this.DROPDOWN_ICON + ' ',
+                        }
+                    }
+                };
+                dropdownIconDecorations.push(iconDecoration);
+
+                // Track clickable zone so clicking still opens the version picker
+                clickableZones.push({
+                    line: dep.line,
+                    startChar: dep.versionStartChar,
+                    endChar: dep.versionStartChar + dep.versionLength + 5,
+                    packageName: dep.packageName,
+                    currentVersion: dep.currentVersion,
+                    versionStartChar: dep.versionStartChar,
+                    versionLength: dep.versionLength,
+                    latestVersion: latestVersion
+                });
             }
         }
 

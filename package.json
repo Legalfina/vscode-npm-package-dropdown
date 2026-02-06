@@ -1,9 +1,10 @@
 {
 	"name": "npm-version-lens",
 	"displayName": "NPM Version Dropdown in package.json",
-	"description": "Shows the latest version next to packages in package.json and allows selecting different versions with color-coded update indicators",
+	"description": "Shows the latest version next to packages in package.json and allows selecting different versions with color-coded update indicators. By Legalfina.com",
 	"version": "0.0.1",
 	"publisher": "your-publisher",
+	"author": "Farshad Hemmati",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
