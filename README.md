@@ -10,13 +10,13 @@
 
 <p align="center">
   <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/v/legalfina.npm-version-lens?style=flat-square&label=Version" alt="Version">
+    <img src="https://badgen.net/vs-marketplace/v/legalfina.npm-version-lens" alt="Version">
   </a>
   <a href="https://marketplace.visualstudio.com/items?itemName=legalfina.npm-version-lens">
-    <img src="https://img.shields.io/visual-studio-marketplace/i/legalfina.npm-version-lens?style=flat-square&label=Installs" alt="Installs">
+    <img src="https://badgen.net/vs-marketplace/i/legalfina.npm-version-lens" alt="Installs">
   </a>
   <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License">
+    <img src="https://badgen.net/badge/license/MIT/blue" alt="License">
   </a>
 </p>
 
