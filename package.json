@@ -24,7 +24,7 @@
 		"semver"
 	],
 	"engines": {
-		"vscode": "^1.85.0"
+		"vscode": "^1.67.0"
 	},
 	"categories": [
 		"Other",
@@ -58,11 +58,11 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.0",
-		"@types/vscode": "^1.85.0",
+		"@types/vscode": "^1.67.0",
 		"@typescript-eslint/eslint-plugin": "^6.13.0",
 		"@typescript-eslint/parser": "^6.13.0",
 		"eslint": "^8.54.0",
-		"typescript": "^5.3.0"
+		"typescript": "5.9.3"
 	},
 	"dependencies": {
 		"node-fetch": "^2.7.0"
