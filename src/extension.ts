@@ -33,6 +33,12 @@ export function activate(context: vscode.ExtensionContext) {
         '"', '.', '-' // Trigger characters
     );
 
+    // Register document link provider for npm package links
+    const documentLinkProviderDisposable = vscode.languages.registerDocumentLinkProvider(
+        { language: 'json', pattern: '**/package.json' },
+        packageJsonProvider
+    );
+
     // Track when suggestion widget is closed
     vscode.window.onDidChangeVisibleTextEditors(() => {
         suggestionWidgetVisible = false;
@@ -208,6 +214,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         inlayHintsProviderDisposable,
         completionProviderDisposable,
+        documentLinkProviderDisposable,
         showVersionsCommand,
         updateVersionCommand,
         refreshCommand,

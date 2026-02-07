@@ -51,6 +51,10 @@ Click the dropdown icon next to any package to browse all available versions. Th
   <img src="images/screenshot-dropdown.png" alt="Version dropdown selector" width="450">
 </p>
 
+### Clickable package links
+
+Cmd+click (Ctrl+click on Windows/Linux) any package name to open its page on [npmjs.com](https://www.npmjs.com). Hover over a package name to see the link tooltip.
+
 ### Performance
 
 - Packages are fetched in parallel

@@ -11,6 +11,7 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
     private patchDecorationType: vscode.TextEditorDecorationType;
     private invalidDecorationType: vscode.TextEditorDecorationType;
     private dropdownIconDecorationType: vscode.TextEditorDecorationType;
+    private linkIconDecorationType: vscode.TextEditorDecorationType;
 
     // Icon for the dropdown button
     private readonly DROPDOWN_ICON = ' ⏷';
@@ -53,6 +54,14 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
             }
         });
 
+        // Link icon (shown before the package name opening quote)
+        this.linkIconDecorationType = vscode.window.createTextEditorDecorationType({
+            before: {
+                margin: '0 2px 0 0',
+                color: '#64B5F6', // Light blue
+            }
+        });
+
         // Listen for active editor changes to apply decorations
         vscode.window.onDidChangeActiveTextEditor((editor) => {
             if (editor && editor.document.fileName.endsWith('package.json')) {
@@ -89,6 +98,7 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         const patchDecorations: vscode.DecorationOptions[] = [];
         const invalidDecorations: vscode.DecorationOptions[] = [];
         const dropdownIconDecorations: vscode.DecorationOptions[] = [];
+        const linkIconDecorations: vscode.DecorationOptions[] = [];
         const clickableZones: ClickableZone[] = [];
 
         // Fetch all package info in parallel
@@ -149,6 +159,22 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
             const marginCh = Math.max(4, TARGET_COLUMN - currentEndPosition);
 
             if (!isValidVersion) {
+                // Show link icon before the package name
+                if (dep.packageNameStartChar > 0) {
+                    const linkRange = new vscode.Range(
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1),
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1)
+                    );
+                    // linkIconDecorations.push({
+                    //     range: linkRange,
+                    //     renderOptions: {
+                    //         before: {
+                    //             contentText: '🔗',
+                    //         }
+                    //     }
+                    // });
+                }
+
                 // Show icon with space inside quotes
                 const iconDecoration: vscode.DecorationOptions = {
                     range: iconRange,
@@ -185,6 +211,22 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                     latestVersion: latestVersion
                 });
             } else if (changeType !== VersionChangeType.None) {
+                // Show link icon before the package name
+                if (dep.packageNameStartChar > 0) {
+                    const linkRange = new vscode.Range(
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1),
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1)
+                    );
+                    // linkIconDecorations.push({
+                    //     range: linkRange,
+                    //     renderOptions: {
+                    //         before: {
+                    //             contentText: '🔗',
+                    //         }
+                    //     }
+                    // });
+                }
+
                 // Show icon with space inside quotes
                 const iconDecoration: vscode.DecorationOptions = {
                     range: iconRange,
@@ -233,6 +275,22 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
                 }
             } else {
                 // Package is at latest version — still show dropdown icon for version switching
+                // Show link icon before the package name
+                if (dep.packageNameStartChar > 0) {
+                    const linkRange = new vscode.Range(
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1),
+                        new vscode.Position(dep.line, dep.packageNameStartChar - 1)
+                    );
+                    // linkIconDecorations.push({
+                    //     range: linkRange,
+                    //     renderOptions: {
+                    //         before: {
+                    //             contentText: '🔗',
+                    //         }
+                    //     }
+                    // });
+                }
+
                 const iconDecoration: vscode.DecorationOptions = {
                     range: iconRange,
                     renderOptions: {
@@ -265,6 +323,7 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         editor.setDecorations(this.patchDecorationType, patchDecorations);
         editor.setDecorations(this.invalidDecorationType, invalidDecorations);
         editor.setDecorations(this.dropdownIconDecorationType, dropdownIconDecorations);
+        editor.setDecorations(this.linkIconDecorationType, linkIconDecorations);
     }
 
     async provideInlayHints(
@@ -282,5 +341,6 @@ export class VersionInlayHintsProvider implements vscode.InlayHintsProvider {
         this.patchDecorationType.dispose();
         this.invalidDecorationType.dispose();
         this.dropdownIconDecorationType.dispose();
+        this.linkIconDecorationType.dispose();
     }
 }

@@ -12,6 +12,7 @@ export interface DependencyLocation {
     line: number;
     versionStartChar: number;
     versionLength: number;
+    packageNameStartChar: number;
 }
 
 export enum VersionChangeType {
@@ -52,7 +53,21 @@ export class PackageJsonProvider implements vscode.DocumentLinkProvider {
         document: vscode.TextDocument,
         token: vscode.CancellationToken
     ): vscode.ProviderResult<vscode.DocumentLink[]> {
-        return [];
+        const dependencies = this.parseDependencies(document);
+        const links: vscode.DocumentLink[] = [];
+
+        for (const dep of dependencies) {
+            const range = new vscode.Range(
+                new vscode.Position(dep.line, dep.packageNameStartChar),
+                new vscode.Position(dep.line, dep.packageNameStartChar + dep.packageName.length)
+            );
+            const target = vscode.Uri.parse(`https://www.npmjs.com/package/${dep.packageName}`);
+            const link = new vscode.DocumentLink(range, target);
+            link.tooltip = `Open ${dep.packageName} on npmjs.com`;
+            links.push(link);
+        }
+
+        return links;
     }
 
     parseDependencies(document: vscode.TextDocument): DependencyLocation[] {
@@ -94,13 +109,15 @@ export class PackageJsonProvider implements vscode.DocumentLinkProvider {
                         
                         if (versionMatch) {
                             const versionStartInLine = lineText.indexOf(`"${version}"`);
-                            if (versionStartInLine !== -1) {
+                            const pkgQuoteIndex = lineText.indexOf(`"${packageName}"`);
+                            if (versionStartInLine !== -1 && pkgQuoteIndex !== -1) {
                                 dependencies.push({
                                     packageName,
                                     currentVersion: version,
                                     line: position.line,
                                     versionStartChar: versionStartInLine + 1, // +1 to skip the opening quote
-                                    versionLength: version.length
+                                    versionLength: version.length,
+                                    packageNameStartChar: pkgQuoteIndex + 1 // +1 to skip the opening quote
                                 });
                             }
                         }
